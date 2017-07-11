@@ -11,5 +11,9 @@
   <button type="submit" class="btn btn-info">Update Task</button>
 </form>
 
+<form action="/categories/$task.getCategoryId()/tasks/$task.getId()/delete" method="post">
+  <button type="submit" class="btn btn-danger" id="delete-task">Delete Task</button>
+</form>
+
 <a href="/categories/$category.getId()">Return to $category.getName()</a>
 <!--task.vtl-->
