@@ -92,4 +92,11 @@ public class CategoryTest {
     assertTrue(myCategory.getTasks().containsAll(Arrays.asList(tasks)));
   }
 
+  @Test
+  public void update_updatesCategoryName_true() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    myCategory.update("Home");
+    assertEquals("Home", Category.find(myCategory.getId()).getName());
+  }
 }
