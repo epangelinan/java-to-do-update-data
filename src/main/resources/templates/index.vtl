@@ -1,0 +1,42 @@
+<!--index.vtl-->
+<h1>To Do List</h1>
+
+<h2> All Lists: </h2>
+
+#if($categories)
+  <p>Click on a category to see its tasks:</p>
+  <ul>
+    #foreach ($category in $categories)
+      <li><a href="/categories/$category.getId()">$category.getName()</a></li>
+    #end
+  </ul>
+#else
+  <p>There are no categories yet!</p>
+#end
+
+<h2>New Category:</h2>
+
+<form action="/categories" method="post">
+  <label for="name">Category name</label>
+  <input id="name" name="name" type="text">
+  <button type="submit" class="btn btn-success">Add Category</button>
+</form>
+
+<h2>New Task:</h2>
+
+<form action="/tasks" method="post">
+  <label for="categoryId">Select a List</label>
+  <select id='categoryId' name='categoryId' type='text'>
+    #foreach($category in $categories)
+      <option value="$category.getId()">$category.getName()</option>
+    #end
+  </select>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <input id="description" name="description" type="text" class="form-control">
+  </div>
+
+  <button type="submit" class="btn btn-success">Add Task</button>
+</form>
+<!--index.vtl-->
