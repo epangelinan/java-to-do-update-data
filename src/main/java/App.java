@@ -24,10 +24,14 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    get("/tasks", (request, response) -> {
+    //new routing to display category and tasks
+    get("/categories/:category_id/tasks/:id", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      model.put("tasks", Task.all());
-      model.put("template", "templates/tasks.vtl");
+      Category category = Category.find(Integer.parseInt(request.params(":category_id")));
+      Task task = Task.find(Integer.parseInt(request.params(":id")));
+      model.put("category", category);
+      model.put("task", task);
+      model.put("template", "templates/task.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
@@ -77,6 +81,18 @@ public class App {
       Category category = Category.find(Integer.parseInt(request.params(":id")));
       model.put("category", category);
       model.put("template", "templates/category.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    //Here, we locate the Task and Category objects. Then, we retrieve the new description the user has provided in our update form. We call our new update() method on the Task, and pass in the new description object. OurTask` should now be updated!
+    post("/categories/:category_id/tasks/:id", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Task task = Task.find(Integer.parseInt(request.params("id")));
+      String description = request.queryParams("description");
+      Category category = Category.find(task.getCategoryId());
+      task.update(description);
+      String url = String.format("/categories/%d/tasks/%d", category.getId(), task.getId());
+      response.redirect(url);
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 

@@ -76,4 +76,16 @@ public class Task {
       return task;
     }
   }
+
+  public void update(String description) {
+  try(Connection con = DB.sql2o.open()) {
+    String sql = "UPDATE tasks SET description = :description WHERE id = :id";
+    con.createQuery(sql)
+      .addParameter("description", description)
+      .addParameter("id", id)
+      .executeUpdate();
+  }
+}
+
+
 }
