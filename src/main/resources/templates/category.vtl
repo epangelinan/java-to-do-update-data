@@ -15,6 +15,10 @@
   <button type="submit" class="btn btn-info">Update Category</button>
 </form>
 
+<form action="/categories/$category.getId()/delete" method="post">
+  <button type="submit" class="btn btn-danger" id="delete-category">Delete Category</button>
+</form>
+
 <a href="/categories/$category.getId()/tasks/new">Add a new task</a>
 <a href="/categories">All categories</a>
 <!--category.vtl-->
